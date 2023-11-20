@@ -2,32 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notepad Tracker</title>
 </head>
 <body>
-    <textarea id="note-text" rows="10" cols="50"></textarea>
-    <br>
-    <button onclick="saveNote()">Save Note</button>
-    <script>
-        function saveNote() {
-            const noteText = document.getElementById('note-text').value;
-            fetch('/save_note', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `note_text=${encodeURIComponent(noteText)}`,
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('Note saved successfully!');
-                } else {
-                    alert('Failed to save note.');
-                }
-            });
-        }
-    </script>
+    <h1>Notepad Tracker</h1>
+
+    <form action="/save_note" method="post" enctype="multipart/form-data">
+        <label for="note-text">Note:</label>
+        <br>
+        <textarea id="note-text" name="note_text" rows="10" cols="50"></textarea>
+        <br>
+        <label for="file">Upload File:</label>
+        <br>
+        <input type="file" name="file">
+        <br>
+        <button type="submit">Save Note</button>
+    </form>
 </body>
 </html>
