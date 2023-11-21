@@ -8,16 +8,27 @@
 <body>
     <h1>Notepad Tracker</h1>
 
-    <form action="/save_note" method="post" enctype="multipart/form-data">
-        <label for="note-text">Note:</label>
-        <br>
-        <textarea id="note-text" name="note_text" rows="10" cols="50"></textarea>
-        <br>
-        <label for="file">Upload File:</label>
-        <br>
-        <input type="file" name="file">
-        <br>
-        <button type="submit">Save Note</button>
+    <h2>Create New Note</h2>
+    <form action="/create" method="post">
+        <label for="note-name">Note Name:</label>
+        <input type="text" id="note-name" name="note_name" required>
+        <button type="submit">Create Note</button>
     </form>
+
+    <h2>Upload File</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Upload File:</label>
+        <input type="file" name="file">
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Existing Notes</h2>
+    <ul>
+        {% for note in notes %}
+            <li>
+                <a href="{{ url_for('edit_note', note_name=note) }}">{{ note }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
